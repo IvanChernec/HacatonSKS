@@ -122,7 +122,18 @@ fun RaspisScreen(isTeacher: Int, selectedItem: String, database: AppDatabase) {
             NavigationBar {
                 items.forEachIndexed { index, item ->
                     NavigationBarItem(
-                        icon = { Icon(painterResource(id = R.drawable.ic_calendar), contentDescription = item) },
+                        icon = {
+                            Icon(
+                                painter = painterResource(
+                                    id = when(item) {
+                                        "Расписание" -> R.drawable.ic_calendar
+                                        "Дополнительно" -> R.drawable.ic_info
+                                        else -> R.drawable.ic_calendar
+                                    }
+                                ),
+                                contentDescription = item
+                            )
+                        },
                         label = { Text(item) },
                         selected = selectedNavItem == index,
                         onClick = {

@@ -64,7 +64,7 @@ fun StudentScheduleItem(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF2B2B3D)
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
         shape = RoundedCornerShape(16.dp)
     ) {
@@ -81,26 +81,26 @@ fun StudentScheduleItem(
                 Text(
                     text = "${item.startTime} - ${item.endTime}",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
             Text(
                 text = item.subjectName,
                 style = MaterialTheme.typography.titleMedium,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Text(
                 text = item.teacherName,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Text(
                 text = "Ауд. ${item.room}",
                 style = MaterialTheme.typography.bodySmall,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
@@ -116,7 +116,7 @@ fun StudentScheduleItem(
                 ) {
                     Text(
                         text = "Заметка:",
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.bodyMedium
                     )
                     TextField(
@@ -126,10 +126,10 @@ fun StudentScheduleItem(
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),
                         colors = TextFieldDefaults.colors(
-                            unfocusedContainerColor = Color(0xFF3E3E4E),
-                            focusedContainerColor = Color(0xFF3E3E4E),
-                            unfocusedTextColor = Color.White,
-                            focusedTextColor = Color.White
+                            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                            focusedContainerColor = MaterialTheme.colorScheme.surface,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                            focusedTextColor = MaterialTheme.colorScheme.onSurface
                         ),
                         placeholder = { Text("Введите текст", color = Color.Gray) }
                     )
@@ -164,7 +164,7 @@ fun TeacherScheduleItem(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF2B2B3D)
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
         shape = RoundedCornerShape(16.dp)
     ) {
@@ -181,26 +181,26 @@ fun TeacherScheduleItem(
                 Text(
                     text = "${item.startTime} - ${item.endTime}",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
             Text(
                 text = item.groupName,
                 style = MaterialTheme.typography.titleMedium,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Text(
                 text = item.subjectName,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Text(
                 text = "Ауд. ${item.room}",
                 style = MaterialTheme.typography.bodySmall,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
@@ -216,7 +216,7 @@ fun TeacherScheduleItem(
                 ) {
                     Text(
                         text = "Заметка:",
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.bodyMedium
                     )
                     TextField(
@@ -226,10 +226,10 @@ fun TeacherScheduleItem(
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),
                         colors = TextFieldDefaults.colors(
-                            unfocusedContainerColor = Color(0xFF3E3E4E),
-                            focusedContainerColor = Color(0xFF3E3E4E),
-                            unfocusedTextColor = Color.White,
-                            focusedTextColor = Color.White
+                            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                            focusedContainerColor = MaterialTheme.colorScheme.surface,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                            focusedTextColor = MaterialTheme.colorScheme.onSurface
                         ),
                         placeholder = { Text("Введите текст", color = Color.Gray) }
                     )

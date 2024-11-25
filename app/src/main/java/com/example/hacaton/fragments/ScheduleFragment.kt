@@ -4,12 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -27,17 +29,20 @@ import kotlinx.coroutines.withContext
 fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavController, database: AppDatabase) {
     var scheduleItems by remember { mutableStateOf<List<ScheduleItem>>(emptyList()) }
     var expandedItem by remember { mutableStateOf<ScheduleItem?>(null) }
+    var selectedDay by remember { mutableStateOf(1) }
 
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(key1 = selectedDay) {
         withContext(Dispatchers.IO) {
             if (isTeacher == 0) {
                 val group = database.groupDao().getGroupByName(selectedItem)
-                val scheduleWithDetails = database.scheduleDao().getScheduleForGroup(group.id)
-                scheduleItems = scheduleWithDetails.map { it.toScheduleItem() }
+                scheduleItems = database.scheduleDao().getScheduleForGroup(group.id)
+                    .filter { it.day == selectedDay }
+                    .map { it.toScheduleItem() }
             } else {
                 val teacher = database.teacherDao().getTeacherByName(selectedItem)
-                val scheduleWithDetails = database.scheduleDao().getScheduleForTeacher(teacher.id)
-                scheduleItems = scheduleWithDetails.map { it.toScheduleItem() }
+                scheduleItems = database.scheduleDao().getScheduleForTeacher(teacher.id)
+                    .filter { it.day == selectedDay }
+                    .map { it.toScheduleItem() }
             }
         }
     }
@@ -51,15 +56,15 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
         horizontalAlignment = Alignment.Start
     ) {
         Header(selectedItem)
-        SquareButtonsBlock()
+        SquareButtonsBlock(
+            selectedDay = selectedDay,
+            onDaySelected = { day -> selectedDay = day }
+        )
         Spacer(modifier = Modifier.height(16.dp))
         if (isTeacher == 0) {
             StudentScheduleList(scheduleItems, expandedItem, { item -> expandedItem = item })
         } else {
             TeacherScheduleList(scheduleItems, expandedItem, { item -> expandedItem = item })
-        }
-        if (expandedItem != null) {
-            ExpandedDetails(expandedItem!!)
         }
     }
 }
@@ -91,28 +96,44 @@ fun Header(selectedItem: String) {
 }
 
 @Composable
-fun SquareButtonsBlock() {
+fun SquareButtonsBlock(
+    selectedDay: Int,
+    onDaySelected: (Int) -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFFEAEAEA), shape = RoundedCornerShape(8.dp))
-            .padding(16.dp)
+            .padding(top = 16.dp)  // добавили отступ сверху
+            .background(MaterialTheme.colorScheme.secondary, shape = RoundedCornerShape(12.dp))
+            .padding(12.dp)
     ) {
         Row(
             modifier = Modifier.horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(modifier = Modifier.size(100.dp), onClick = { /* Действие */ }) {
-                Text("Кнопка 1")
-            }
-            Button(modifier = Modifier.size(100.dp), onClick = { /* Действие */ }) {
-                Text("Кнопка 2")
-            }
-            Button(modifier = Modifier.size(100.dp), onClick = { /* Действие */ }) {
-                Text("Кнопка 3")
+            val days = listOf("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс")
+            days.forEachIndexed { index, day ->
+                Button(
+                    onClick = { onDaySelected(index + 1) },
+                    modifier = Modifier.size(70.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (selectedDay == index + 1)
+                            MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
+                    )
+                ) {
+                    Text(
+                        day,
+                        color = if (selectedDay == index + 1)
+                            MaterialTheme.colorScheme.onPrimary
+                        else MaterialTheme.colorScheme.onSurface,
+                        fontSize = 16.sp,  // увеличили размер текста
+                        fontWeight = if (selectedDay == index + 1)
+                            FontWeight.Bold else FontWeight.Normal
+                    )
+                }
             }
         }
     }
 }
-

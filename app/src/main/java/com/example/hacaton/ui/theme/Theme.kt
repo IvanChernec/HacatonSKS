@@ -21,14 +21,14 @@ private val LightColorPalette = lightColorScheme(
 
 // Определение цветовой схемы для темной темы
 private val DarkColorPalette = darkColorScheme(
-    primary = Color(0xFF1A1A2E), // Черный (или очень темный) цвет
+    primary = Color(0xFF000000), // Черный (или очень темный) цвет
     onPrimary = Color(0xFFEAEAEA), // Светлый текст на черном фоне
     secondary = Color(0xFF162447), // Темно-фиолетовый
     onSecondary = Color(0xFFEAEAEA),
     background = Color(0xFF0F0F1A), // Темный фон
     onBackground = Color.White, // Белый текст на темном фоне
     surface = Color(0xFF1A1A2E),
-    onSurface = Color(0xFFEAEAEA)
+    onSurface = Color(0xFFFFFFFF)
 )
 
 @Composable
