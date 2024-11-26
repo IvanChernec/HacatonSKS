@@ -82,6 +82,16 @@ class MainActivityRaspis : ComponentActivity() {
                     endTime = "10:30"
                 ),
                 Schedule(
+                    groupId = 1,
+                    teacherId = 1,
+                    subjectId = 1,
+                    day = 2,
+                    week = 13,
+                    room = "101",
+                    startTime = "09:00",
+                    endTime = "10:30"
+                ),
+                Schedule(
                     groupId = 2,
                     teacherId = 2,
                     subjectId = 2,

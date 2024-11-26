@@ -1,6 +1,10 @@
 package com.example.hacaton.fragments
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -19,15 +23,18 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.example.hacaton.db.AppDatabase
 import com.example.hacaton.db.Schedule
 import com.example.hacaton.model.ScheduleItem
 import com.example.hacaton.model.getStudentScheduleItems
 import com.example.hacaton.mappers.toScheduleItem
+import com.example.hacaton.notification.NotificationHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Calendar
@@ -38,6 +45,17 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
     var scheduleItems by remember { mutableStateOf<List<ScheduleItem>>(emptyList()) }
     var expandedItem by remember { mutableStateOf<ScheduleItem?>(null) }
     var showWeekPicker by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permission = Manifest.permission.POST_NOTIFICATIONS
+            if (ContextCompat.checkSelfPermission(context, permission)
+                != PackageManager.PERMISSION_GRANTED) {
+                val activity = context as? Activity
+                activity?.requestPermissions(arrayOf(permission), 1)
+            }
+        }
+    }
     val (currentWeek, currentDay) = remember { getCurrentWeekAndDay() }
     var selectedDay by remember { mutableStateOf(currentDay) }
     var selectedWeek by remember { mutableStateOf(currentWeek) }
@@ -72,9 +90,6 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
             weekNumber = selectedWeek
         )
 
-
-
-
         LaunchedEffect(key1 = selectedDay, key2 = selectedWeek) {
             withContext(Dispatchers.IO) {
                 if (isTeacher == 0) {
@@ -88,6 +103,16 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
                         .filter { it.day == selectedDay && it.week == selectedWeek }
                         .map { it.toScheduleItem() }
                 }
+            }
+        }
+        LaunchedEffect(scheduleItems) {
+            val notificationHelper = NotificationHelper(context)
+            scheduleItems.forEach { item ->
+                notificationHelper.scheduleNotification(
+                    subject = item.subjectName,
+                    room = item.room,
+                    startTime = item.startTime
+                )
             }
         }
 
@@ -149,7 +174,6 @@ fun Header(
         }
     }
 }
-
 
 @Composable
     fun SquareButtonsBlock(
