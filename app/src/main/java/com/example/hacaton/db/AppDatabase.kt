@@ -71,7 +71,6 @@ interface SubjectDao {
     @Insert
     suspend fun insertSubject(subject: Subject)
 
-    // Добавьте другие необходимые методы
 }
 
 @Dao

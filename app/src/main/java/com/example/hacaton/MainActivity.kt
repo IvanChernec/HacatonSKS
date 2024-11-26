@@ -2,6 +2,7 @@ package com.example.hacaton
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -32,10 +33,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainActivity : ComponentActivity() {
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var database: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         database = AppDatabase.getInstance(this)
 
         // Заполняем базу данных, если она пуста
@@ -103,7 +106,7 @@ fun MainScreen(database: AppDatabase) {
             fontSize = 32.sp,
             color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.align(Alignment.CenterHorizontally) // Центрируем текст.
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -112,7 +115,7 @@ fun MainScreen(database: AppDatabase) {
             text = "Пожалуйста, выберите одну из опций ниже",
             fontSize = 20.sp,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.align(Alignment.CenterHorizontally) // Центрируем текст.
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
         Spacer(modifier = Modifier.height(50.dp))
@@ -220,9 +223,17 @@ fun SearchDialog(
 }
 
 private fun navigateToRaspis(context: Context, isTeacher: Int, selectedItem: String) {
-    val intent= Intent(context, MainActivityRaspis::class.java).apply{
-        putExtra("isTeacher",isTeacher)
-        putExtra("selectedItem",selectedItem)
+    // Сохраняем данные в SharedPreferences
+    context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        .edit()
+        .putInt("isTeacher", isTeacher)
+        .putString("selectedItem", selectedItem)
+        .apply()
+
+    // Запускаем активность с расписанием
+    val intent = Intent(context, MainActivityRaspis::class.java).apply {
+        putExtra("isTeacher", isTeacher)
+        putExtra("selectedItem", selectedItem)
     }
     context.startActivity(intent)
 }
