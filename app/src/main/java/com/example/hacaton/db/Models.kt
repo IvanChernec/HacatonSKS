@@ -1,6 +1,7 @@
 package com.example.hacaton.db
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "groups")
@@ -19,6 +20,24 @@ data class Teacher(
 data class Subject(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String
+)
+@Entity(
+    tableName = "notes",
+    foreignKeys = [
+        ForeignKey(
+            entity = Schedule::class,
+            parentColumns = ["id"],
+            childColumns = ["scheduleId"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
+)
+data class Note(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val scheduleId: Int,
+    val text: String,
+    val timestamp: Long,
+    val needReminder: Boolean = false
 )
 
 @Entity(tableName = "schedule")

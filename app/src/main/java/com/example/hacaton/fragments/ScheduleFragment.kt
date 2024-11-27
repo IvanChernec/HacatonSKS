@@ -1,8 +1,8 @@
 package com.example.hacaton.fragments
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Application
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.compose.foundation.background
@@ -12,32 +12,32 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.temporal.ChronoUnit
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.hacaton.db.AppDatabase
-import com.example.hacaton.db.Schedule
+import com.example.hacaton.db.Note
 import com.example.hacaton.model.ScheduleItem
-import com.example.hacaton.model.getStudentScheduleItems
 import com.example.hacaton.mappers.toScheduleItem
+import com.example.hacaton.model.ScheduleViewModel
+import com.example.hacaton.model.ViewModelFactory
 import com.example.hacaton.notification.NotificationHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Calendar
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -45,12 +45,19 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
     var scheduleItems by remember { mutableStateOf<List<ScheduleItem>>(emptyList()) }
     var expandedItem by remember { mutableStateOf<ScheduleItem?>(null) }
     var showWeekPicker by remember { mutableStateOf(false) }
+    var scheduleNotes by remember { mutableStateOf<List<Note>>(emptyList()) }
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val viewModel: ScheduleViewModel = viewModel(
+        factory = ViewModelFactory(context.applicationContext as Application)
+    )
+
     LaunchedEffect(Unit) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val permission = Manifest.permission.POST_NOTIFICATIONS
             if (ContextCompat.checkSelfPermission(context, permission)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED
+            ) {
                 val activity = context as? Activity
                 activity?.requestPermissions(arrayOf(permission), 1)
             }
@@ -115,6 +122,13 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
                 )
             }
         }
+        LaunchedEffect(expandedItem) {
+            expandedItem?.let { item ->
+                withContext(Dispatchers.IO) {
+                    scheduleNotes = database.noteDao().getNotesForSchedule(item.id)
+                }
+            }
+        }
 
         Column(
             modifier = Modifier
@@ -126,9 +140,59 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
         ) {
             Spacer(modifier = Modifier.height(16.dp))
             if (isTeacher == 0) {
-                StudentScheduleList(scheduleItems, expandedItem, { item -> expandedItem = item })
+                StudentScheduleList(
+                    scheduleItems = scheduleItems,
+                    expandedItem = expandedItem,
+                    scheduleNotes = scheduleNotes,
+                    onItemClicked = { item ->
+                        expandedItem = if (expandedItem == item) null else item
+                    },
+                    onNoteAdded = { text, hasReminder ->
+                        expandedItem?.let { item ->
+                            viewModel.addNote(item.id, text, hasReminder)
+                            scope.launch {
+                                withContext(Dispatchers.IO) {
+                                    scheduleNotes = database.noteDao().getNotesForSchedule(item.id)
+                                }
+                            }
+                        }
+                    },
+                    onTransferNote = {
+                        expandedItem?.let { item ->
+                            viewModel.transferLastNote(item)
+                        }
+                    },
+                    onNoteDeleted = { note ->
+                        viewModel.deleteNote(note)
+                    }
+                )
             } else {
-                TeacherScheduleList(scheduleItems, expandedItem, { item -> expandedItem = item })
+                TeacherScheduleList(
+                    scheduleItems = scheduleItems,
+                    expandedItem = expandedItem,
+                    scheduleNotes = scheduleNotes,
+                    onItemClicked = { item ->
+                        expandedItem = if (expandedItem == item) null else item
+                    },
+                    onNoteAdded = { text, hasReminder ->
+                        expandedItem?.let { item ->
+                            viewModel.addNote(item.id, text, hasReminder)
+                            scope.launch {
+                                withContext(Dispatchers.IO) {
+                                    scheduleNotes = database.noteDao().getNotesForSchedule(item.id)
+                                }
+                            }
+                        }
+                    },
+                    onTransferNote = {
+                        expandedItem?.let { item ->
+                            viewModel.transferLastNote(item)
+                        }
+                    },
+                    onNoteDeleted = { note ->
+                        viewModel.deleteNote(note)
+                    }
+                )
             }
         }
     }

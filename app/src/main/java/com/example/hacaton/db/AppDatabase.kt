@@ -3,18 +3,23 @@ package com.example.hacaton.db
 import android.content.Context
 import androidx.room.Dao
 import androidx.room.Database
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.Transaction
+import androidx.room.TypeConverters
 import com.example.hacaton.mappers.ScheduleWithDetails
 
-@Database(entities = [Group::class, Teacher::class, Subject::class, Schedule::class], version = 3)
+@TypeConverters(Converters::class)
+@Database(entities = [Group::class, Teacher::class, Subject::class, Schedule::class, Note::class], version = 4)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun groupDao(): GroupDao
     abstract fun teacherDao(): TeacherDao
     abstract fun subjectDao(): SubjectDao
     abstract fun scheduleDao(): ScheduleDao
+    abstract fun noteDao(): NoteDao
 
     companion object {
         private var instance: AppDatabase? = null
@@ -25,7 +30,8 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "schedule_database"
-                ).build()
+                ).addMigrations(MIGRATION_3_4)  // Добавляем миграцию
+            .build()
             }
             return instance!!
         }
@@ -46,6 +52,19 @@ interface GroupDao {
 
     @Query("SELECT * FROM groups WHERE name = :name LIMIT 1")
     suspend fun getGroupByName(name: String): Group
+}
+@Dao
+interface NoteDao {
+    @Insert
+    suspend fun insert(note: Note)
+    @Delete
+    suspend fun delete(note: Note)
+
+    @Query("SELECT * FROM notes WHERE scheduleId = :scheduleId ORDER BY timestamp DESC")
+    suspend fun getNotesForSchedule(scheduleId: Int): List<Note>
+
+    @Query("SELECT * FROM notes WHERE scheduleId = :scheduleId ORDER BY timestamp DESC LIMIT 1")
+    suspend fun getLastNoteForSchedule(scheduleId: Int): Note?
 }
 
 @Dao
@@ -75,6 +94,25 @@ interface SubjectDao {
 
 @Dao
 interface ScheduleDao {
+    @Query("SELECT * FROM schedule WHERE id = :scheduleId")
+    suspend fun getScheduleById(scheduleId: Int): Schedule?
+
+    @Query("""
+        SELECT * FROM schedule 
+        WHERE subjectId = :subjectId 
+        AND (day > :currentDay OR (day = :currentDay AND week > :currentWeek))
+        ORDER BY week ASC, day ASC 
+        LIMIT 1
+    """)
+    suspend fun getNextSimilarSchedule(
+        subjectId: Int,
+        currentDay: Int,
+        currentWeek: Int
+    ): Schedule?
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE scheduleId = :scheduleId ORDER BY timestamp DESC")
+    suspend fun getNotesForSchedule(scheduleId: Int): List<Note>
 
     @Query("""
     SELECT s.*, 

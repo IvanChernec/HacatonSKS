@@ -18,6 +18,8 @@
         <receiver
             android:name=".notification.NotificationReceiver"
             android:exported="false" />
+        <receiver android:name=".notification.NoteNotificationReceiver"
+            android:exported="false" />
 
         <activity
             android:name=".SplashActivity"

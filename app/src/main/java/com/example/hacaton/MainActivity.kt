@@ -1,8 +1,11 @@
 package com.example.hacaton
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -50,6 +53,20 @@ class MainActivity : ComponentActivity() {
             HacatonTheme() {
                 MainScreen(database)
             }
+        }
+    }
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "notes_channel",
+                "Notes Reminders",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "Канал для напоминаний о заметках"
+            }
+
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
         }
     }
 

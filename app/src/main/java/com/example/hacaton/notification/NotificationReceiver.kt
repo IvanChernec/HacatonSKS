@@ -22,5 +22,6 @@ class NotificationReceiver : BroadcastReceiver() {
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(subject.hashCode(), notification)
+
     }
 }

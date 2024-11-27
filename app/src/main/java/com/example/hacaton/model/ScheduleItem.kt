@@ -1,6 +1,7 @@
 package com.example.hacaton.model
 
-import com.example.hacaton.db.Schedule
+import com.example.hacaton.db.Note
+
 
 data class ScheduleItem(
     val id: Int,
@@ -14,39 +15,7 @@ data class ScheduleItem(
     val endTime: String,
     val subjectName: String,
     val teacherName: String,
-    val groupName: String
+    val groupName: String,
+    val notes: List<Note>? = null
 )
 
-// Функции для получения тестовых данных
-fun getStudentScheduleItems(selectedGroup: String): List<ScheduleItem> {
-    return listOf(
-        ScheduleItem(
-            id = 1,
-            groupId = 1,
-            teacherId = 1,
-            subjectId = 1,
-            day = 1,
-            week = 1,
-            room = "Ауд. 101",
-            startTime = "09:00",
-            endTime = "10:30",
-            subjectName = "Математика",
-            teacherName = "Иванов И.И.",
-            groupName = selectedGroup
-        ),
-        ScheduleItem(
-            id = 2,
-            groupId = 1,
-            teacherId = 2,
-            subjectId = 2,
-            day = 1,
-            week = 1,
-            room = "Ауд. 202",
-            startTime = "11:00",
-            endTime = "12:30",
-            subjectName = "Физика",
-            teacherName = "Петров П.П.",
-            groupName = selectedGroup
-        )
-    )
-}

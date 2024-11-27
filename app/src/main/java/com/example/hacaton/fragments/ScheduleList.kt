@@ -16,133 +16,135 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.hacaton.db.Note
 import com.example.hacaton.model.ScheduleItem
 
 @Composable
 fun StudentScheduleList(
     scheduleItems: List<ScheduleItem>,
     expandedItem: ScheduleItem?,
-    onItemClicked: (ScheduleItem) -> Unit
+    scheduleNotes: List<Note>,
+    onItemClicked: (ScheduleItem) -> Unit,
+    onNoteAdded: (text: String, hasReminder: Boolean) -> Unit,
+    onTransferNote: () -> Unit,
+    onNoteDeleted: (Note) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(scheduleItems) { item ->
-            StudentScheduleItem(item, expandedItem, onItemClicked)
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onItemClicked(item) },
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Text(
+                        text = "${item.startTime} - ${item.endTime}",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        text = item.subjectName,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                    Text(
+                        text = item.teacherName,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                    Text(
+                        text = "Ауд. ${item.room}",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+
+                    AnimatedVisibility(
+                        visible = item == expandedItem,
+                        enter = expandVertically() + fadeIn(),
+                        exit = shrinkVertically() + fadeOut()
+                    ) {
+                        NotesList(
+                            notes = scheduleNotes,
+                            onNoteAdded = onNoteAdded,
+                            onTransferNote = onTransferNote,
+                            onNoteDeleted = onNoteDeleted
+                        )
+                    }
+                }
+            }
         }
     }
 }
-
 @Composable
 fun TeacherScheduleList(
     scheduleItems: List<ScheduleItem>,
     expandedItem: ScheduleItem?,
-    onItemClicked: (ScheduleItem) -> Unit
+    scheduleNotes: List<Note>,
+    onItemClicked: (ScheduleItem) -> Unit,
+    onNoteAdded: (text: String, hasReminder: Boolean) -> Unit,
+    onTransferNote: () -> Unit,
+    onNoteDeleted: (Note) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(scheduleItems) { item ->
-            TeacherScheduleItem(item, expandedItem, onItemClicked)
-        }
-    }
-}
-
-@Composable
-fun StudentScheduleItem(
-    item: ScheduleItem,
-    expandedItem: ScheduleItem?,
-    onItemClicked: (ScheduleItem) -> Unit
-) {
-    var isExpanded by remember { mutableStateOf(false) }
-    var textValue by remember { mutableStateOf("") }
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
-        ),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { isExpanded = !isExpanded }
-                .padding(16.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start
-            ) {
-                Text(
-                    text = "${item.startTime} - ${item.endTime}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onItemClicked(item) },
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
-            }
-
-            Text(
-                text = item.subjectName,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-            Text(
-                text = item.teacherName,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-            Text(
-                text = "Ауд. ${item.room}",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-
-            AnimatedVisibility(
-                visible = isExpanded,
-                enter = expandVertically() + fadeIn(),
-                exit = shrinkVertically() + fadeOut()
             ) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp)
+                    modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
-                        text = "Заметка:",
+                        text = "${item.startTime} - ${item.endTime}",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        text = item.groupName,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
-                    TextField(
-                        value = textValue,
-                        onValueChange = { textValue = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        colors = TextFieldDefaults.colors(
-                            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-                            focusedContainerColor = MaterialTheme.colorScheme.surface,
-                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            focusedTextColor = MaterialTheme.colorScheme.onSurface
-                        ),
-                        placeholder = { Text("Введите текст", color = Color.Gray) }
+                    Text(
+                        text = item.subjectName,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
-                    Button(
-                        onClick = { /* Действие сохранения */ },
-                        modifier = Modifier
-                            .align(Alignment.End)
-                            .padding(top = 8.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFF1E1E2E)
-                        )
+                    Text(
+                        text = "Ауд. ${item.room}",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+
+                    AnimatedVisibility(
+                        visible = item == expandedItem,
+                        enter = expandVertically() + fadeIn(),
+                        exit = shrinkVertically() + fadeOut()
                     ) {
-                        Text("Сохранить")
+                        NotesList(
+                            notes = scheduleNotes,
+                            onNoteAdded = onNoteAdded,
+                            onTransferNote = onTransferNote,
+                            onNoteDeleted = onNoteDeleted
+                        )
                     }
                 }
             }
@@ -150,102 +152,5 @@ fun StudentScheduleItem(
     }
 }
 
-@Composable
-fun TeacherScheduleItem(
-    item: ScheduleItem,
-    expandedItem: ScheduleItem?,
-    onItemClicked: (ScheduleItem) -> Unit
-) {
-    var isExpanded by remember { mutableStateOf(false) }
-    var textValue by remember { mutableStateOf("") }
 
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
-        ),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { isExpanded = !isExpanded }
-                .padding(16.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start
-            ) {
-                Text(
-                    text = "${item.startTime} - ${item.endTime}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
 
-            Text(
-                text = item.groupName,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-            Text(
-                text = item.subjectName,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-            Text(
-                text = "Ауд. ${item.room}",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-
-            AnimatedVisibility(
-                visible = isExpanded,
-                enter = expandVertically() + fadeIn(),
-                exit = shrinkVertically() + fadeOut()
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp)
-                ) {
-                    Text(
-                        text = "Заметка:",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    TextField(
-                        value = textValue,
-                        onValueChange = { textValue = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        colors = TextFieldDefaults.colors(
-                            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-                            focusedContainerColor = MaterialTheme.colorScheme.surface,
-                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            focusedTextColor = MaterialTheme.colorScheme.onSurface
-                        ),
-                        placeholder = { Text("Введите текст", color = Color.Gray) }
-                    )
-                    Button(
-                        onClick = { /* Действие сохранения */ },
-                        modifier = Modifier
-                            .align(Alignment.End)
-                            .padding(top = 8.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFF1E1E2E)
-                        )
-                    ) {
-                        Text("Сохранить")
-                    }
-                }
-            }
-        }
-    }
-}
