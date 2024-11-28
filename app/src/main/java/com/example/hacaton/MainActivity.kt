@@ -2,11 +2,14 @@ package com.example.hacaton
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -31,6 +34,7 @@ import com.example.hacaton.db.AppDatabase
 import com.example.hacaton.db.Group
 import com.example.hacaton.db.Teacher
 import com.example.hacaton.ui.theme.HacatonTheme
+import com.example.hacaton.widget.ScheduleWidgetProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -55,20 +59,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "notes_channel",
-                "Notes Reminders",
-                NotificationManager.IMPORTANCE_HIGH
-            ).apply {
-                description = "Канал для напоминаний о заметках"
-            }
 
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
 
     private suspend fun populateDatabaseIfEmpty() {
         val groupCount = database.groupDao().getGroupCount()
@@ -246,6 +237,21 @@ private fun navigateToRaspis(context: Context, isTeacher: Int, selectedItem: Str
         .putInt("isTeacher", isTeacher)
         .putString("selectedItem", selectedItem)
         .apply()
+    val appWidgetManager = AppWidgetManager.getInstance(context)
+    val componentName = ComponentName(context, ScheduleWidgetProvider::class.java)
+    val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
+
+    Log.d("WidgetDebug", "isTeacher: $isTeacher, selectedItem: $selectedItem")
+
+    val intent1 = Intent(context, ScheduleWidgetProvider::class.java).apply {
+        action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+        putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,
+            AppWidgetManager.getInstance(context)
+                .getAppWidgetIds(ComponentName(context, ScheduleWidgetProvider::class.java)))
+    }
+    context.sendBroadcast(intent1)
+
+    Log.d("WidgetDebug", "isTeacher: $isTeacher, selectedItem: $selectedItem")
 
     // Запускаем активность с расписанием
     val intent = Intent(context, MainActivityRaspis::class.java).apply {

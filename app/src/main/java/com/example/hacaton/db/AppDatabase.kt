@@ -41,6 +41,9 @@ abstract class AppDatabase : RoomDatabase() {
 // Data Access Objects (DAOs)
 @Dao
 interface GroupDao {
+    @Query("SELECT * FROM groups WHERE id = :id")
+    suspend fun getGroupById(id: Int): Group
+
     @Query("SELECT * FROM groups")
     suspend fun getAllGroups(): List<Group>
 
@@ -69,6 +72,9 @@ interface NoteDao {
 
 @Dao
 interface TeacherDao {
+    @Query("SELECT * FROM teachers WHERE id = :id")
+    suspend fun getTeacherById(id: Int): Teacher
+
     @Query("SELECT * FROM teachers")
     suspend fun getAllTeachers(): List<Teacher>
 
@@ -84,6 +90,8 @@ interface TeacherDao {
 
 @Dao
 interface SubjectDao {
+    @Query("SELECT * FROM subjects WHERE id = :id")
+    suspend fun getSubjectById(id: Int): Subject
     @Query("SELECT * FROM subjects")
     suspend fun getAllSubjects(): List<Subject>
 
