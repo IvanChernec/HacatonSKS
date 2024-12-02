@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -41,6 +42,9 @@ abstract class AppDatabase : RoomDatabase() {
 // Data Access Objects (DAOs)
 @Dao
 interface GroupDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(groups: List<Group>)
+
     @Query("SELECT * FROM groups WHERE id = :id")
     suspend fun getGroupById(id: Int): Group
 
@@ -72,6 +76,9 @@ interface NoteDao {
 
 @Dao
 interface TeacherDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(teachers: List<Teacher>)
+
     @Query("SELECT * FROM teachers WHERE id = :id")
     suspend fun getTeacherById(id: Int): Teacher
 
@@ -90,8 +97,12 @@ interface TeacherDao {
 
 @Dao
 interface SubjectDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(subjects: List<Subject>)
+
     @Query("SELECT * FROM subjects WHERE id = :id")
     suspend fun getSubjectById(id: Int): Subject
+
     @Query("SELECT * FROM subjects")
     suspend fun getAllSubjects(): List<Subject>
 
@@ -102,6 +113,9 @@ interface SubjectDao {
 
 @Dao
 interface ScheduleDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(schedules: List<Schedule>)
+
     @Query("SELECT * FROM schedule WHERE id = :scheduleId")
     suspend fun getScheduleById(scheduleId: Int): Schedule?
 

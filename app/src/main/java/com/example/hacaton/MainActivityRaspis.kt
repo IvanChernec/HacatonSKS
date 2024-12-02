@@ -19,6 +19,7 @@ import com.example.hacaton.db.Group
 import com.example.hacaton.db.Schedule
 import com.example.hacaton.db.Subject
 import com.example.hacaton.db.Teacher
+import com.example.hacaton.fragments.AdditionalFragment
 import com.example.hacaton.fragments.ScheduleFragment
 import com.example.hacaton.mappers.ScheduleWithDetails
 import com.example.hacaton.ui.theme.HacatonTheme
@@ -170,18 +171,9 @@ fun RaspisScreen(isTeacher: Int, selectedItem: String, database: AppDatabase) {
                 ScheduleFragment(isTeacher, selectedItem, navController, database)
             }
             composable("Дополнительно") {
-                AdditionalFragment()
+                AdditionalFragment(navController)
             }
         }
     }
 }
 
-@Composable
-fun AdditionalFragment() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text("Дополнительная информация будет здесь")
-    }
-}
