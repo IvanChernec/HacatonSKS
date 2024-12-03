@@ -9,24 +9,24 @@ import androidx.compose.ui.graphics.Color
 
 // Определение цветовой схемы для светлой темы
 private val LightColorPalette = lightColorScheme(
-    primary = Color(0xFF003366), // Темно-синий
-    onPrimary = Color.White, // Белый текст на темно-синем фоне
-    secondary = Color(0xFF66B2FF), // Светло-синий
-    onSecondary = Color.White,
+    primary = Color(0xFF003366),
+    onPrimary = Color.White,
+    secondary = Color(0xFF66B2FF),
+    onSecondary = Color.Black,
     background = Color.White,
-    onBackground = Color(0xFF002244), // Темно-синий текст на белом фоне
+    onBackground = Color(0xFF002244),
     surface = Color.White,
     onSurface = Color(0xFF002244)
 )
 
 // Определение цветовой схемы для темной темы
 private val DarkColorPalette = darkColorScheme(
-    primary = Color(0xFF000000), // Черный (или очень темный) цвет
-    onPrimary = Color(0xFFEAEAEA), // Светлый текст на черном фоне
-    secondary = Color(0xFF162447), // Темно-фиолетовый
+    primary = Color(0xFF000000),
+    onPrimary = Color(0xFFEAEAEA),
+    secondary = Color(0xFF162447),
     onSecondary = Color(0xFFEAEAEA),
-    background = Color(0xFF0F0F1A), // Темный фон
-    onBackground = Color.White, // Белый текст на темном фоне
+    background = Color(0xFF0F0F1A),
+    onBackground = Color.White,
     surface = Color(0xFF1A1A2E),
     onSurface = Color(0xFFFFFFFF)
 )

@@ -25,70 +25,56 @@ import kotlinx.coroutines.withContext
 class SplashViewModel(application: Application) : AndroidViewModel(application) {
     private val _apiState = MutableStateFlow<ApiState>(ApiState.Loading)
     val apiState: StateFlow<ApiState> = _apiState
-    private val database = AppDatabase.getInstance(application)
+    private val database = AppDatabase.getInstance(getApplication())
 
     init {
-        loadData()
+        loadInitialData()
     }
 
-    private fun loadData() {
+    private fun loadInitialData() {
         viewModelScope.launch {
             try {
                 withTimeout(25000) {
-                    val prefs = getApplication<Application>().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-                    val isTeacher = prefs.getInt("isTeacher", -1)
-                    val selectedItem = prefs.getString("selectedItem", null)
-
-                    if (isTeacher == -1 || selectedItem == null) {
-                        val response = ApiClient.api.getInitialData()
-                        if (response.success) {
-                            saveInitialData(response.data)
-                            _apiState.value = ApiState.Success
-                        } else {
-                            _apiState.value = ApiState.Error(response.error ?: "Unknown error")
+                    // Загружаем группы
+                    val groupsResponse = ApiClient.api.getGroups()
+                    if (groupsResponse.success) {
+                        withContext(Dispatchers.IO) {
+                            database.groupDao().insertAll(
+                                groupsResponse.data?.map { dto ->
+                                    Group(id = dto.id, name = dto.name)
+                                } ?: emptyList()
+                            )
                         }
-                    } else {
-                        // Остальной код без изменений
                     }
+
+                    // Загружаем преподавателей
+                    val teachersResponse = ApiClient.api.getTeachers()
+                    if (teachersResponse.success) {
+                        withContext(Dispatchers.IO) {
+                            database.teacherDao().insertAll(
+                                teachersResponse.data?.map { dto ->
+                                    Teacher(id = dto.id, name = dto.name)
+                                } ?: emptyList()
+                            )
+                        }
+                    }
+
+                    // Загружаем предметы
+                    val subjectsResponse = ApiClient.api.getSubjects()
+                    if (subjectsResponse.success) {
+                        withContext(Dispatchers.IO) {
+                            database.subjectDao().insertAll(
+                                subjectsResponse.data?.map { dto ->
+                                    Subject(id = dto.id, name = dto.name)
+                                } ?: emptyList()
+                            )
+                        }
+                    }
+
+                    _apiState.value = ApiState.Success
                 }
             } catch (e: Exception) {
                 _apiState.value = ApiState.Error(e.message ?: "Unknown error")
-            }
-        }
-    }
-
-    private suspend fun saveInitialData(data: InitialData?) {
-        data?.let {
-            withContext(Dispatchers.IO) {
-                database.groupDao().insertAll(it.groups.map { dto ->
-                    Group(id = dto.id, name = dto.name)
-                })
-                database.teacherDao().insertAll(it.teachers.map { dto ->
-                    Teacher(id = dto.id, name = dto.name)
-                })
-                database.subjectDao().insertAll(it.subjects.map { dto ->
-                    Subject(id = dto.id, name = dto.name)
-                })
-            }
-        }
-    }
-
-    private suspend fun saveScheduleData(data: ScheduleData?) {
-        data?.let {
-            withContext(Dispatchers.IO) {
-                database.scheduleDao().insertAll(it.schedules.map { dto ->
-                    Schedule(
-                        id = dto.id,
-                        subjectId = dto.subjectId,
-                        teacherId = dto.teacherId,
-                        groupId = dto.groupId,
-                        room = dto.room,
-                        startTime = dto.startTime,
-                        endTime = dto.endTime,
-                        day = dto.day,
-                        week = dto.week
-                    )
-                })
             }
         }
     }

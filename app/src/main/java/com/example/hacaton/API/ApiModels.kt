@@ -16,6 +16,9 @@ data class InitialData(
 data class ScheduleData(
     val schedules: List<ScheduleDto>
 )
+data class AcademicYearDto(
+    val academicYear: String // формат "start:DD:MM:YYYY end:DD:MM:YYYY"
+)
 
 // DTO (Data Transfer Objects)
 data class GroupDto(

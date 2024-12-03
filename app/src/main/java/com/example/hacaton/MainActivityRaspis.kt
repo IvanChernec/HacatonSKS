@@ -1,5 +1,7 @@
 package com.example.hacaton
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.hacaton.API.AcademicYearManager
 import com.example.hacaton.db.AppDatabase
 import com.example.hacaton.db.Group
 import com.example.hacaton.db.Schedule
@@ -26,25 +29,48 @@ import com.example.hacaton.ui.theme.HacatonTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
 
 class MainActivityRaspis : ComponentActivity() {
     private lateinit var database: AppDatabase
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var startDateM: LocalDate
+    private lateinit var endDateM: LocalDate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = AppDatabase.getInstance(this)
+        val academicYearManager = AcademicYearManager(this)
+
+        lifecycleScope.launch {
+            val (startDate, endDate) = academicYearManager.getAcademicYear()
+            startDateM = startDate
+            endDateM = endDate
+        }
 
         lifecycleScope.launch(Dispatchers.IO) {
             populateScheduleIfEmpty()
         }
-
+        sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val isTeacher = intent.getIntExtra("isTeacher", 0)
         val selectedItem = intent.getStringExtra("selectedItem") ?: ""
+        val theme = sharedPreferences.getString("theme", "Системная")
 
         setContent {
-            HacatonTheme() {
-                RaspisScreen(isTeacher, selectedItem, database)
+            if (theme == "Системная") {
+                HacatonTheme() {
+                    RaspisScreen(isTeacher, selectedItem, database, startDateM, endDateM)
+                }
+            }else if (theme == "Темная"){
+                HacatonTheme(darkTheme = true) {
+                    RaspisScreen(isTeacher, selectedItem, database, startDateM, endDateM)
+                }
+            }else{
+                HacatonTheme(darkTheme = false) {
+                    RaspisScreen(isTeacher, selectedItem, database, startDateM, endDateM)
+                }
             }
+
         }
     }
 
@@ -119,7 +145,7 @@ class MainActivityRaspis : ComponentActivity() {
 }
 
 @Composable
-fun RaspisScreen(isTeacher: Int, selectedItem: String, database: AppDatabase) {
+fun RaspisScreen(isTeacher: Int, selectedItem: String, database: AppDatabase, startDate: LocalDate, endDate: LocalDate) {
     var scheduleItems by remember { mutableStateOf<List<ScheduleWithDetails>>(emptyList()) }
     val navController = rememberNavController()
     var selectedNavItem by remember { mutableStateOf(0) }
@@ -168,7 +194,7 @@ fun RaspisScreen(isTeacher: Int, selectedItem: String, database: AppDatabase) {
     ) { innerPadding ->
         NavHost(navController, startDestination = "Расписание", Modifier.padding(innerPadding)) {
             composable("Расписание") {
-                ScheduleFragment(isTeacher, selectedItem, navController, database)
+                ScheduleFragment(isTeacher, selectedItem, navController, database, startDate, endDate)
             }
             composable("Дополнительно") {
                 AdditionalFragment(navController)

@@ -87,7 +87,7 @@ fun SettingsScreen(
         Text(
             text = "Авторы",
             style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onSecondary
         )
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -113,7 +113,7 @@ fun SettingsScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Сайт колледжа",
-                color = MaterialTheme.colorScheme.onPrimary)
+                color = MaterialTheme.colorScheme.onSecondary)
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -122,7 +122,7 @@ fun SettingsScreen(
         Text(
             text = "Настройки",
             style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onSecondary
         )
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -186,7 +186,7 @@ fun SettingsScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Время напоминания: ${viewModel.reminderTime}",
-                color = MaterialTheme.colorScheme.onPrimary)
+                color = MaterialTheme.colorScheme.onSecondary)
         }
 
         if (showTimePicker) {
@@ -234,7 +234,7 @@ fun AuthorItem(
                 Text(
                     text = role,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    color = MaterialTheme.colorScheme.onSecondary
                 )
             }
         }
@@ -276,13 +276,13 @@ fun TimePickerDialog(
                 onTimeSelected(selectedHour, selectedMinute)
             }) {
                 Text("OK",
-                    color = MaterialTheme.colorScheme.onPrimary)
+                    color = MaterialTheme.colorScheme.onSecondary)
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
                 Text("Отмена",
-                    color = MaterialTheme.colorScheme.onPrimary)
+                    color = MaterialTheme.colorScheme.onSecondary)
             }
         }
     )

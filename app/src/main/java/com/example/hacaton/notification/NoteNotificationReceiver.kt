@@ -12,6 +12,8 @@ import com.example.hacaton.R
 class NoteNotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val noteText = intent.getStringExtra("note_text") ?: return
+        val prefs = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val notificationsEnabled = prefs.getBoolean("notifications_enabled", true)
 
         val channelId = "notes_channel"
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -28,16 +30,17 @@ class NoteNotificationReceiver : BroadcastReceiver() {
             }
             notificationManager.createNotificationChannel(channel)
         }
-
-        val notification = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.drawable.ic_notification)
+        if(notificationsEnabled){
+            val notification = NotificationCompat.Builder(context, channelId)
+            .setSmallIcon(R.drawable.logo)
             .setContentTitle("Не забыли о своей заметке?")
             .setContentText(noteText)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .build()
+            notificationManager.notify(noteText.hashCode(), notification)
+        }
 
-        notificationManager.notify(noteText.hashCode(), notification)
     }
 }

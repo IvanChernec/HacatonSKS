@@ -8,6 +8,7 @@ import android.app.AlarmManager
 import android.app.Application
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
@@ -16,6 +17,7 @@ import com.example.hacaton.db.AppDatabase
 import com.example.hacaton.db.Note
 import com.example.hacaton.notification.NoteNotificationReceiver
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.time.temporal.TemporalAdjusters
 
@@ -24,7 +26,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     private val noteDao = database.noteDao()
     private val scheduleDao = database.scheduleDao()
 
-    fun addNote(scheduleId: Int, text: String, hasReminder: Boolean) {
+    fun addNote(scheduleId: Int, text: String, hasReminder: Boolean, reminderTime: String) {
         viewModelScope.launch {
             val note = Note(
                 scheduleId = scheduleId,
@@ -41,7 +43,8 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
                         text,
                         it.subjectId,
                         it.day,
-                        it.week
+                        it.week,
+                        reminderTime
                     )
                 }
             }
@@ -57,7 +60,8 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
         noteText: String,
         subjectId: Int,
         currentDay: Int,
-        currentWeek: Int
+        currentWeek: Int,
+        reminderTime: String
     ) {
         try {
             // Получаем следующую пару
@@ -70,6 +74,8 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
             nextSchedule?.let { schedule ->
                 val startDate = LocalDate.of(2024, 9, 1)
                 val firstMonday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY))
+                val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                val lessonTime = timeFormat.parse(reminderTime) ?: return
 
                 val targetDate = firstMonday
                     .plusWeeks(schedule.week.toLong() - 1)
@@ -82,8 +88,8 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
                     set(Calendar.YEAR, notificationDate.year)
                     set(Calendar.MONTH, notificationDate.monthValue - 1)
                     set(Calendar.DAY_OF_MONTH, notificationDate.dayOfMonth)
-                    set(Calendar.HOUR_OF_DAY, 17)
-                    set(Calendar.MINUTE, 0)
+                    set(Calendar.HOUR_OF_DAY, lessonTime.hours)
+                    set(Calendar.MINUTE, lessonTime.minutes)
                     set(Calendar.SECOND, 0)
                 }
 
@@ -151,7 +157,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
             }
         }
     }
-    fun transferLastNote(currentItem: ScheduleItem) {
+    fun transferLastNote(currentItem: ScheduleItem, reminderTime: String) {
         viewModelScope.launch {
             val nextSchedule = scheduleDao.getNextSimilarSchedule(
                 currentItem.subjectId,
@@ -168,7 +174,8 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
                             note.text,
                             currentItem.subjectId,
                             currentItem.day,
-                            currentItem.week
+                            currentItem.week,
+                            reminderTime
                         )
                     }
                 }

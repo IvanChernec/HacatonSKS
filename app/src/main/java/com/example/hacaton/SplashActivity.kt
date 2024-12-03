@@ -43,6 +43,7 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private val viewModel: SplashViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)

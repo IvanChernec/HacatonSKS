@@ -3,6 +3,8 @@ package com.example.hacaton.fragments
 import android.Manifest
 import android.app.Activity
 import android.app.Application
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.compose.foundation.background
@@ -37,16 +39,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Calendar
 import androidx.compose.runtime.rememberCoroutineScope
+import com.example.hacaton.API.AcademicYearManager
+import com.example.hacaton.MainActivity
 import kotlinx.coroutines.launch
+import androidx.lifecycle.lifecycleScope
 
 
 @Composable
-fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavController, database: AppDatabase) {
+fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavController, database: AppDatabase, startDate: LocalDate, endDate: LocalDate) {
     var scheduleItems by remember { mutableStateOf<List<ScheduleItem>>(emptyList()) }
     var expandedItem by remember { mutableStateOf<ScheduleItem?>(null) }
     var showWeekPicker by remember { mutableStateOf(false) }
     var scheduleNotes by remember { mutableStateOf<List<Note>>(emptyList()) }
     val context = LocalContext.current
+    val prefs = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+    val reminderTime = prefs.getString("reminder_time", "17:00")
+
+
     val scope = rememberCoroutineScope()
     val viewModel: ScheduleViewModel = viewModel(
         factory = ViewModelFactory(context.applicationContext as Application)
@@ -68,8 +77,8 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
     var selectedWeek by remember { mutableStateOf(currentWeek) }
     val totalWeeks = remember {
         calculateWeeks(
-            LocalDate.of(2024, 9, 1),
-            LocalDate.of(2024, 12, 30)
+            startDate,
+            endDate
         )
     }
 
@@ -86,7 +95,8 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
     Column {
         Header(
             selectedItem = selectedItem,
-            onWeekClick = { showWeekPicker = true }
+            onWeekClick = { showWeekPicker = true },
+            context = context
         )
         SquareButtonsBlock(
             selectedDay = selectedDay,
@@ -149,7 +159,9 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
                     },
                     onNoteAdded = { text, hasReminder ->
                         expandedItem?.let { item ->
-                            viewModel.addNote(item.id, text, hasReminder)
+                            if (reminderTime != null) {
+                                viewModel.addNote(item.id, text, hasReminder, reminderTime)
+                            }
                             scope.launch {
                                 withContext(Dispatchers.IO) {
                                     scheduleNotes = database.noteDao().getNotesForSchedule(item.id)
@@ -159,7 +171,9 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
                     },
                     onTransferNote = {
                         expandedItem?.let { item ->
-                            viewModel.transferLastNote(item)
+                            if (reminderTime != null) {
+                                viewModel.transferLastNote(item, reminderTime)
+                            }
                         }
                     },
                     onNoteDeleted = { note ->
@@ -176,7 +190,9 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
                     },
                     onNoteAdded = { text, hasReminder ->
                         expandedItem?.let { item ->
-                            viewModel.addNote(item.id, text, hasReminder)
+                            if (reminderTime != null) {
+                                viewModel.addNote(item.id, text, hasReminder, reminderTime)
+                            }
                             scope.launch {
                                 withContext(Dispatchers.IO) {
                                     scheduleNotes = database.noteDao().getNotesForSchedule(item.id)
@@ -186,7 +202,9 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
                     },
                     onTransferNote = {
                         expandedItem?.let { item ->
-                            viewModel.transferLastNote(item)
+                            if (reminderTime != null) {
+                                viewModel.transferLastNote(item, reminderTime)
+                            }
                         }
                     },
                     onNoteDeleted = { note ->
@@ -213,7 +231,8 @@ fun ScheduleFragment(isTeacher: Int, selectedItem: String, navController: NavCon
 @Composable
 fun Header(
     selectedItem: String,
-    onWeekClick: () -> Unit
+    onWeekClick: () -> Unit,
+    context: Context
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -223,6 +242,10 @@ fun Header(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.secondary, shape = RoundedCornerShape(16.dp))
                 .padding(16.dp)
+                .clickable {
+                    context.startActivity(Intent(context, MainActivity::class.java))
+                    (context as? Activity)?.finish()
+                }
         ) {
             Text(
                 text = selectedItem,
@@ -247,7 +270,7 @@ fun Header(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp)  // добавили отступ сверху
+                .padding(top = 16.dp)
                 .background(MaterialTheme.colorScheme.secondary, shape = RoundedCornerShape(12.dp))
                 .padding(12.dp)
         ) {

@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,33 +31,64 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import com.example.hacaton.API.ApiClient
+import com.example.hacaton.API.ApiState
 import com.example.hacaton.db.AppDatabase
 import com.example.hacaton.db.Group
+import com.example.hacaton.db.Schedule
 import com.example.hacaton.db.Teacher
+import com.example.hacaton.model.LoadingScreen
+import com.example.hacaton.model.MainViewModel
 import com.example.hacaton.ui.theme.HacatonTheme
 import com.example.hacaton.widget.ScheduleWidgetProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var database: AppDatabase
+    val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         database = AppDatabase.getInstance(this)
+        val theme = sharedPreferences.getString("theme", "Системная")
 
-        // Заполняем базу данных, если она пуста
+        setupScheduleCheck(this)
         lifecycleScope.launch(Dispatchers.IO) {
             populateDatabaseIfEmpty()
         }
 
         setContent {
-            HacatonTheme() {
-                MainScreen(database)
+            when (theme) {
+                "Системная" -> HacatonTheme { MainContent() }
+                "Темная" -> HacatonTheme(darkTheme = true) { MainContent() }
+                else -> HacatonTheme(darkTheme = false) { MainContent() }
             }
+        }
+    }
+
+    @Composable
+    private fun MainContent() {
+        val apiState by viewModel.apiState.collectAsState()
+
+        when (apiState) {
+            is ApiState.Loading -> LoadingScreen()
+            else -> MainScreen(
+                database = database,
+                onRoleSelected = { isTeacher, selectedItem ->
+                    viewModel.loadScheduleData(isTeacher, selectedItem)
+                }
+            )
         }
     }
 
@@ -85,7 +117,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(database: AppDatabase) {
+fun MainScreen(database: AppDatabase, onRoleSelected: (Int, String) -> Unit) {
     val context = LocalContext.current
     var showStudentDialog by remember { mutableStateOf(false) }
     var showTeacherDialog by remember { mutableStateOf(false) }
@@ -224,7 +256,8 @@ fun SearchDialog(
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text("Отмена")
+                Text("Отмена",
+                    color = MaterialTheme.colorScheme.onSecondary)
             }
         }
     )
@@ -237,26 +270,77 @@ private fun navigateToRaspis(context: Context, isTeacher: Int, selectedItem: Str
         .putInt("isTeacher", isTeacher)
         .putString("selectedItem", selectedItem)
         .apply()
+
+    // Обновляем виджет
     val appWidgetManager = AppWidgetManager.getInstance(context)
     val componentName = ComponentName(context, ScheduleWidgetProvider::class.java)
     val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
 
-    Log.d("WidgetDebug", "isTeacher: $isTeacher, selectedItem: $selectedItem")
-
-    val intent1 = Intent(context, ScheduleWidgetProvider::class.java).apply {
+    val widgetIntent = Intent(context, ScheduleWidgetProvider::class.java).apply {
         action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,
-            AppWidgetManager.getInstance(context)
-                .getAppWidgetIds(ComponentName(context, ScheduleWidgetProvider::class.java)))
+        putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
     }
-    context.sendBroadcast(intent1)
+    context.sendBroadcast(widgetIntent)
 
-    Log.d("WidgetDebug", "isTeacher: $isTeacher, selectedItem: $selectedItem")
+    // Загружаем данные с API
+    (context as ComponentActivity).lifecycleScope.launch {
+        try {
+            val database = AppDatabase.getInstance(context)
+            withTimeout(25000) {
+                val response = if (isTeacher == 0) {
+                    ApiClient.api.getScheduleForGroup(selectedItem)
+                } else {
+                    ApiClient.api.getScheduleForTeacher(selectedItem)
+                }
 
-    // Запускаем активность с расписанием
-    val intent = Intent(context, MainActivityRaspis::class.java).apply {
-        putExtra("isTeacher", isTeacher)
-        putExtra("selectedItem", selectedItem)
+                if (response.success) {
+                    withContext(Dispatchers.IO) {
+                        response.data?.schedules?.let {
+                            database.scheduleDao().insertAll(it.map { dto ->
+                                Schedule(
+                                    id = dto.id,
+                                    subjectId = dto.subjectId,
+                                    teacherId = dto.teacherId,
+                                    groupId = dto.groupId,
+                                    room = dto.room,
+                                    startTime = dto.startTime,
+                                    endTime = dto.endTime,
+                                    day = dto.day,
+                                    week = dto.week
+                                )
+                            })
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("API Error", "Error loading schedule data", e)
+        } finally {
+            // Переходим к расписанию
+            val intent = Intent(context, MainActivityRaspis::class.java).apply {
+                putExtra("isTeacher", isTeacher)
+                putExtra("selectedItem", selectedItem)
+            }
+            context.startActivity(intent)
+        }
     }
-    context.startActivity(intent)
+}
+private fun setupScheduleCheck(context: Context) {
+    val constraints = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.CONNECTED)
+        .build()
+
+    val scheduleCheckRequest = PeriodicWorkRequestBuilder<ScheduleCheckWorker>(
+        60, TimeUnit.MINUTES,  // Проверка каждые 60 минут
+        5, TimeUnit.MINUTES    // Гибкий интервал
+    )
+        .setConstraints(constraints)
+        .build()
+
+    WorkManager.getInstance(context)
+        .enqueueUniquePeriodicWork(
+            "schedule_check",
+            ExistingPeriodicWorkPolicy.KEEP,
+            scheduleCheckRequest
+        )
 }
