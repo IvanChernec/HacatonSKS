@@ -34,6 +34,7 @@ fun StudentScheduleList(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(scheduleItems) { item ->
+            val isInProgress = isLessonInProgress(item.startTime, item.endTime)
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -45,6 +46,14 @@ fun StudentScheduleList(
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
+                    if (isInProgress) {
+                        Text(
+                            text = "Пара идет",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
                     Text(
                         text = "${item.startTime} - ${item.endTime}",
                         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -100,6 +109,7 @@ fun TeacherScheduleList(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(scheduleItems) { item ->
+            val isInProgress = isLessonInProgress(item.startTime, item.endTime)
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -111,6 +121,14 @@ fun TeacherScheduleList(
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
+                    if (isInProgress) {
+                        Text(
+                            text = "Пара идет",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
                     Text(
                         text = "${item.startTime} - ${item.endTime}",
                         color = MaterialTheme.colorScheme.onSurfaceVariant

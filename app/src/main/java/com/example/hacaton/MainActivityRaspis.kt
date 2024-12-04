@@ -47,7 +47,6 @@ class MainActivityRaspis : ComponentActivity() {
             startDateM = startDate
             endDateM = endDate
         }
-
         lifecycleScope.launch(Dispatchers.IO) {
             populateScheduleIfEmpty()
         }

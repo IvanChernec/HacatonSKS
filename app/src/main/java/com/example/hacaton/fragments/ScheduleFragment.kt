@@ -43,6 +43,7 @@ import com.example.hacaton.API.AcademicYearManager
 import com.example.hacaton.MainActivity
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
+import java.time.LocalTime
 
 
 @Composable
@@ -374,6 +375,12 @@ fun Header(
 
 fun calculateWeeks(startDate: LocalDate, endDate: LocalDate): Int {
     return ChronoUnit.WEEKS.between(startDate, endDate).toInt() + 1
+}
+fun isLessonInProgress(startTime: String, endTime: String): Boolean {
+    val currentTime = LocalTime.now()
+    val lessonStart = LocalTime.parse(startTime)
+    val lessonEnd = LocalTime.parse(endTime)
+    return currentTime.isAfter(lessonStart) && currentTime.isBefore(lessonEnd)
 }
 
 fun getCurrentWeekAndDay(): Pair<Int, Int> {
