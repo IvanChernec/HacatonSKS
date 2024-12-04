@@ -15,31 +15,98 @@
     Группы
 </MudButton>
 
-<MudTabs Outlined="true" Position="Position.Top" Rounded="true" Border="true"
-         ApplyEffectsToContainer="true" Class="mt-8" PanelClass="pa-6">
+<MudTabs Outlined="true" Position="Position.Top" Rounded="true" Border="true" ApplyEffectsToContainer="true" Class="mt-8" PanelClass="pa-6">
+
     <MudTabPanel Text="Все недели">
         <MudText>
-            
-            
+            @for (int i = 0; i <= 1; i++)
+            {
+                <MudTable Items="@day.Take(3)" Bordered="true" Hover="false" Breakpoint="Breakpoint.Sm">
+                    <!-- это пример что отправлять в Items-->
+                    <!--Надо сделать логику, чтобы Фио отображалась 1 раз-->
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">FIO prep</MudText>
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh>Понедельник</MudTh>
+                        <MudTh>Вторник</MudTh>
+                        <MudTh>Среда</MudTh>
+                        <MudTh>Четверг</MudTh>
+                        <MudTh>Пятница</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="@day[0]">IP+недели</MudTd>
+                        <MudTd DataLabel="@day[1]">IKS+недели</MudTd>
+                        <MudTd DataLabel="@day[2]">T+недели</MudTd>
+                        <MudTd DataLabel="@day[3]">IV+недели</MudTd>
+                        <MudTd DataLabel="@day[4]">IB+недели</MudTd>
+                    </RowTemplate>
+                </MudTable>
+                <br />
+            }
 
         </MudText>
     </MudTabPanel>
     <MudTabPanel Text="Неделя">
         <MudText>
             <MudStack>
-            <MudDateRangePicker @bind-DateRange="@_dateRange" Margin="Margin.Dense" Clearable="true" PlaceholderStart="Начало даты" PlaceholderEnd="Конец даты" />
+                <MudDateRangePicker @bind-DateRange="@_dateRange" Margin="Margin.Dense" Clearable="true" PlaceholderStart="Начало даты" PlaceholderEnd="Конец даты" />
+                @for (int i = 0; i <= 1; i++)
+                {
+                    <MudTable Items="@day.Take(3)" Bordered="true" Hover="false" Breakpoint="Breakpoint.Sm">
+                        <!-- это пример что отправлять в Items-->
+                        <!--Надо сделать логику, чтобы Фио отображалась 1 раз-->
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">FIO prep</MudText>
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh>Понедельник</MudTh>
+                            <MudTh>Вторник</MudTh>
+                            <MudTh>Среда</MudTh>
+                            <MudTh>Четверг</MudTh>
+                            <MudTh>Пятница</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="@day[0]">IP</MudTd>
+                            <MudTd DataLabel="@day[1]">IKS</MudTd>
+                            <MudTd DataLabel="@day[2]">T</MudTd>
+                            <MudTd DataLabel="@day[3]">IV</MudTd>
+                            <MudTd DataLabel="@day[4]">IB</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                    <br />
+                }
             </MudStack>
         </MudText>
     </MudTabPanel>
     <MudTabPanel Text="День">
         <MudText>
             <MudDatePicker Placeholder="Дата" Clearable="true" @bind-Date="_date" />
+            <br />
+            @for (int i = 0; i <= 1; i++)
+            {
+                <MudTable Items="@day.Take(3)" Bordered="true" Hover="false" Breakpoint="Breakpoint.Sm">
+                    <!-- это пример что отправлять в Items-->
+                    <!--Надо сделать логику, чтобы Фио отображалась 1 раз-->
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">FIO prep</MudText>
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh>День недели</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="@day[0]">IP</MudTd>
+                    </RowTemplate>
+                </MudTable>
+                <br />
+            }
         </MudText>
     </MudTabPanel>
 </MudTabs>
 
 @code {
     private DateTime? _date = DateTime.Today;
+    private string[] day = new string[5] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница" };
 
     private Task OpenDialogGroupsAsync()
     {
