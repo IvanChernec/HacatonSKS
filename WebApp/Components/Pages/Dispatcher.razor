@@ -1,14 +1,45 @@
 ﻿@inject ISnackbar Snackbar
 @page "/Dispatcher"
 
-<!--
-<MudFileUpload T="IBrowserFile" Accept=".pdf" FilesChanged="UploadFiles2" MaximumFileCount="100">
+
+<MudFileUpload T="IBrowserFile" Accept=".xlsx" FilesChanged="UploadFiles" MaximumFileCount="100">
     <ActivatorContent>
         <MudButton Variant="Variant.Filled"
                    Color="Color.Primary"
                    StartIcon="@Icons.Material.Filled.CloudUpload">
-            Only .pdf files
+            Загрузка файла
         </MudButton>
     </ActivatorContent>
 </MudFileUpload>
--->
+
+@if (files != null)
+{
+    <MudList T="string">
+        @foreach (var file in files)
+        {
+            <MudListItem Icon="@Icons.Material.Filled.AttachFile">
+                @file.Name <code>@file.Size bytes</code>
+            </MudListItem>
+        }
+    </MudList>
+}
+@code
+{
+    IList<IBrowserFile> files = new List<IBrowserFile>();
+    <!--Функция для загрузки нескольких ффайлов
+    private void UploadFiles(IReadOnlyList<IBrowserFile> files)
+    {
+        foreach (var file in files)
+        {
+            this.files.Add(file);
+        }
+        //TODO загрузить файлы на сервер
+    }
+    -->
+
+    private void UploadFiles(IBrowserFile file)
+    {
+        files.Add(file);
+        //TODO загрузить файлы на сервер
+    }
+}
