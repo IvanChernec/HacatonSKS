@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\dispatcher.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\dispatcher.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\calendar.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\calendar.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\groups.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\groups.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\dispatcher.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\dispatcher.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Bookmark",
@@ -62,20 +70,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "Groups.razor",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Groups.razor",
+              "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Groups.razor",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Groups.razor",
+              "RelativeToolTip": "WebApp\\Components\\Pages\\Groups.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-04T21:23:25.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Calendar.razor",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Calendar.razor",
+              "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Calendar.razor",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Calendar.razor",
+              "RelativeToolTip": "WebApp\\Components\\Pages\\Calendar.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-04T21:15:12.128Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Dispatcher.razor",
               "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Dispatcher.razor",
               "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Dispatcher.razor",
               "ToolTip": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Dispatcher.razor",
               "RelativeToolTip": "WebApp\\Components\\Pages\\Dispatcher.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAARAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABwAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-12-04T20:48:38.245Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "NavMenu.razor",
               "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Layout\\NavMenu.razor",
               "RelativeDocumentMoniker": "WebApp\\Components\\Layout\\NavMenu.razor",
@@ -88,7 +122,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Layout\\MainLayout.razor",
               "RelativeDocumentMoniker": "WebApp\\Components\\Layout\\MainLayout.razor",
@@ -101,13 +135,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Home.razor",
               "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Home.razor",
               "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Home.razor",
-              "ToolTip": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Home.razor",
-              "RelativeToolTip": "WebApp\\Components\\Pages\\Home.razor",
-              "ViewState": "AQIAAD8AAAAAAAAAAAAAAAEAAAAaAAAA",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Home.razor*",
+              "RelativeToolTip": "WebApp\\Components\\Pages\\Home.razor*",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAABNAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-12-04T06:23:34.498Z",
               "EditorCaption": ""

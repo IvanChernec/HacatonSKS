@@ -15,6 +15,10 @@
     Группы
 </MudButton>
 
+<MudButton Size="Size.Medium" StartIcon="@Icons.Material.Filled.CalendarMonth" @onclick="OpenDialogCalendarAsync" Variant="Variant.Outlined" Color="Color.Primary">
+    Календарь
+</MudButton>
+
 <MudTabs Outlined="true" Position="Position.Top" Rounded="true" Border="true" ApplyEffectsToContainer="true" Class="mt-8" PanelClass="pa-6">
 
     <MudTabPanel Text="Все недели">
@@ -120,6 +124,13 @@
         var options = new DialogOptions { CloseOnEscapeKey = true };
 
         return DialogService.ShowAsync<Teachers>("Simple Dialog", options);
+    }
+
+    private Task OpenDialogCalendarAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+
+        return DialogService.ShowAsync<Calendar>("Календарь", options);
     }
 
     private DateRange _dateRange { get; set; }

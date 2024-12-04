@@ -1,0 +1,26 @@
+﻿
+<MudDatePicker Label="Календарь" @bind-Value="SelectedDate" PickerVariant="PickerVariant.Static" AdditionalDateClassesFunc="CheckDate"></MudDatePicker>
+
+@code {
+    private DateTime? SelectedDate { get; set; }
+  
+    private string CheckDate(DateTime date)
+        {
+        var workingDays = new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
+        var dayOfWeek = (DayOfWeek)date.DayOfWeek;
+
+        return workingDays.Contains(dayOfWeek) ? "working-day" : "weekend-day";
+    }
+}
+
+<style>
+    .working-day {
+        background-color: #C51045 !important; /* Фиолетовый */
+        color: white !important;
+    }
+
+    .weekend-day {
+        background-color: #90EE90 !important; /* Зелёный */
+        color: black !important;
+    }
+</style>
