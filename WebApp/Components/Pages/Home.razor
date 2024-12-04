@@ -1,4 +1,5 @@
-﻿@inject IDialogService DialogService;
+﻿@inject IDialogService DialogService
+@inject ISnackbar Snackbar
 
 @page "/"
 
@@ -14,22 +15,31 @@
     Группы
 </MudButton>
 
-<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+<MudTabs Outlined="true" Position="Position.Top" Rounded="true" Border="true"
+         ApplyEffectsToContainer="true" Class="mt-8" PanelClass="pa-6">
     <MudTabPanel Text="Все недели">
-        <MudText>Content One</MudText>
+        <MudText>
+            
+            
+
+        </MudText>
     </MudTabPanel>
     <MudTabPanel Text="Неделя">
-        <MudText>Content Two</MudText>
+        <MudText>
+            <MudStack>
+            <MudDateRangePicker @bind-DateRange="@_dateRange" Margin="Margin.Dense" Clearable="true" PlaceholderStart="Начало даты" PlaceholderEnd="Конец даты" />
+            </MudStack>
+        </MudText>
     </MudTabPanel>
     <MudTabPanel Text="День">
-        <MudText>Content Three</MudText>
-    </MudTabPanel>
-    <MudTabPanel Text="Tab Disabled" Disabled="true">
-        <MudText>Content Disabled</MudText>
+        <MudText>
+            <MudDatePicker Placeholder="Дата" Clearable="true" @bind-Date="_date" />
+        </MudText>
     </MudTabPanel>
 </MudTabs>
 
 @code {
+    private DateTime? _date = DateTime.Today;
 
     private Task OpenDialogGroupsAsync()
     {
@@ -44,4 +54,6 @@
 
         return DialogService.ShowAsync<Teachers>("Simple Dialog", options);
     }
+
+    private DateRange _dateRange { get; set; }
 }
