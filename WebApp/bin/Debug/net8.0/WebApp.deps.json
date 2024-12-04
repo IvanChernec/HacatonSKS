@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v8.0": {
       "WebApp/1.0.0": {
         "dependencies": {
-          "MudBlazor": "7.15.0"
+          "MudBlazor": "7.15.0",
+          "MudBlazor.ThemeManager": "2.1.0"
         },
         "runtime": {
           "WebApp.dll": {}
@@ -155,6 +156,18 @@
           }
         }
       },
+      "MudBlazor.ThemeManager/2.1.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "8.0.8",
+          "MudBlazor": "7.15.0"
+        },
+        "runtime": {
+          "lib/net8.0/MudBlazor.ThemeManager.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.1"
+          }
+        }
+      },
       "System.IO.Pipelines/8.0.0": {}
     }
   },
@@ -268,6 +281,13 @@
       "sha512": "sha512-b2+hO7ZTGwsGhu9SoowuNe2ETeF1GzExpg/hIYR++rSh+vy4v/QD0iOsrATWv3LdFJXSgk3d1+XIr5srW3jBiA==",
       "path": "mudblazor/7.15.0",
       "hashPath": "mudblazor.7.15.0.nupkg.sha512"
+    },
+    "MudBlazor.ThemeManager/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Hsabe7ZO4MoAxdJEBOQO7bYo65KVMCb8czBrTttdKHtg664tou+OJEKiudGvn64piS4ZVW742dvMXsWLCF6cJA==",
+      "path": "mudblazor.thememanager/2.1.0",
+      "hashPath": "mudblazor.thememanager.2.1.0.nupkg.sha512"
     },
     "System.IO.Pipelines/8.0.0": {
       "type": "package",
