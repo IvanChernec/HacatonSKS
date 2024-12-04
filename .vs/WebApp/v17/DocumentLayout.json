@@ -3,32 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\dispatcher.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\dispatcher.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\groups.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\groups.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\teachers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\teachers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\pog\\proect\\hacatonsks\\webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,33 +62,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Program.cs",
-              "RelativeDocumentMoniker": "WebApp\\Program.cs",
-              "ToolTip": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Program.cs",
-              "RelativeToolTip": "WebApp\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T17:09:02.99Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Dispatcher.razor",
               "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Dispatcher.razor",
               "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Dispatcher.razor",
               "ToolTip": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Dispatcher.razor",
               "RelativeToolTip": "WebApp\\Components\\Pages\\Dispatcher.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-04T12:27:03.323Z",
+              "WhenOpened": "2024-12-04T20:48:38.245Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "NavMenu.razor",
               "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Layout\\NavMenu.razor",
               "RelativeDocumentMoniker": "WebApp\\Components\\Layout\\NavMenu.razor",
@@ -108,11 +83,12 @@
               "RelativeToolTip": "WebApp\\Components\\Layout\\NavMenu.razor",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-04T08:57:52.898Z"
+              "WhenOpened": "2024-12-04T08:57:52.898Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Layout\\MainLayout.razor",
               "RelativeDocumentMoniker": "WebApp\\Components\\Layout\\MainLayout.razor",
@@ -120,44 +96,21 @@
               "RelativeToolTip": "WebApp\\Components\\Layout\\MainLayout.razor",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-04T06:25:21.942Z"
+              "WhenOpened": "2024-12-04T06:25:21.942Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Home.razor",
               "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Home.razor",
               "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Home.razor",
               "ToolTip": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Home.razor",
               "RelativeToolTip": "WebApp\\Components\\Pages\\Home.razor",
-              "ViewState": "AQIAAE8AAAAAAAAAAAAqwGIAAAAhAAAA",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAAAAEAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-12-04T06:23:34.498Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Groups.razor",
-              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Groups.razor",
-              "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Groups.razor",
-              "ToolTip": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Groups.razor",
-              "RelativeToolTip": "WebApp\\Components\\Pages\\Groups.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-04T06:52:59.839Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Teachers.razor",
-              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Teachers.razor",
-              "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Teachers.razor",
-              "ToolTip": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\Components\\Pages\\Teachers.razor",
-              "RelativeToolTip": "WebApp\\Components\\Pages\\Teachers.razor",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAawBQAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-04T06:57:52.228Z"
             }
           ]
         }
