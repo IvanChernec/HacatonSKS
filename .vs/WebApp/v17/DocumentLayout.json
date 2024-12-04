@@ -1,0 +1,117 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Nikita\\Desktop\\WebApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\webapp\\webapp\\components\\pages\\teachers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\teachers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\webapp\\webapp\\components\\pages\\groups.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\groups.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\webapp\\webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|c:\\users\\nikita\\desktop\\webapp\\webapp\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66538A25-CE3F-44B1-9927-12210A78EBCF}|WebApp\\WebApp.csproj|solutionrelative:webapp\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 11,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\WebApp\\WebApp\\Components\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "WebApp\\Components\\Layout\\MainLayout.razor",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\WebApp\\WebApp\\Components\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "WebApp\\Components\\Layout\\MainLayout.razor",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAAGEAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-04T06:25:21.942Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\WebApp\\WebApp\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\WebApp\\WebApp\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "WebApp\\Components\\Pages\\Home.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-04T06:23:34.498Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Groups.razor",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\WebApp\\WebApp\\Components\\Pages\\Groups.razor",
+              "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Groups.razor",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\WebApp\\WebApp\\Components\\Pages\\Groups.razor",
+              "RelativeToolTip": "WebApp\\Components\\Pages\\Groups.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-04T06:52:59.839Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Teachers.razor",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\WebApp\\WebApp\\Components\\Pages\\Teachers.razor",
+              "RelativeDocumentMoniker": "WebApp\\Components\\Pages\\Teachers.razor",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\WebApp\\WebApp\\Components\\Pages\\Teachers.razor",
+              "RelativeToolTip": "WebApp\\Components\\Pages\\Teachers.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-04T06:57:52.228Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

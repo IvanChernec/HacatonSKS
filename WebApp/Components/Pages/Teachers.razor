@@ -1,0 +1,26 @@
+﻿<MudDialog>
+    <TitleContent>
+        Преподаватели
+    </TitleContent>
+    <DialogContent>
+        <MudButtonGroup Color="Color.Primary" Variant="Variant.Text" Vertical="true">
+            @for (int i = 0; i < 4; i++)
+            {
+                <MudButton>@i</MudButton>
+            }
+            <MudButton>5</MudButton>
+        </MudButtonGroup>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+
+    private void Cancel() => MudDialog.Cancel();
+}
