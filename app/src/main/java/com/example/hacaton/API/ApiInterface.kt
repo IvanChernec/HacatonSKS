@@ -7,7 +7,7 @@ interface ScheduleApi {
     @GET("initial-data")
     suspend fun getInitialData(): ApiResponse<InitialData>
 
-    @GET("schedule")
+    @GET("getScheduleGroup")
     suspend fun getScheduleForGroup(
         @Query("group") groupId: String
     ): ApiResponse<ScheduleData>
@@ -16,14 +16,16 @@ interface ScheduleApi {
     suspend fun getScheduleForTeacher(
         @Query("teacher") teacherId: String
     ): ApiResponse<ScheduleData>
-    @GET("groups")
+
+    @GET("getAllGroup")
     suspend fun getGroups(): ApiResponse<List<GroupDto>>
 
-    @GET("teachers")
+    @GET("getAllTeachers")
     suspend fun getTeachers(): ApiResponse<List<TeacherDto>>
 
-    @GET("subjects")
+    @GET("getAllSubjects")
     suspend fun getSubjects(): ApiResponse<List<SubjectDto>>
+
     @GET("academic-year")
     suspend fun getAcademicYear(): ApiResponse<AcademicYearDto>
 }
