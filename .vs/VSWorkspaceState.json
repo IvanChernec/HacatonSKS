@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WebApp",
+    "\\WebApp\\Components",
+    "\\WebApp\\Components\\Pages"
   ],
-  "SelectedNode": "\\C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS",
+  "SelectedNode": "\\WebApp\\Components\\Pages\\Teachers.razor",
   "PreviewInSolutionExplorer": false
 }
