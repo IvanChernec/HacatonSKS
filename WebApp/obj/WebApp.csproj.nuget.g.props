@@ -15,5 +15,6 @@
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)mudblazor\7.15.0\buildTransitive\MudBlazor.props" Condition="Exists('$(NuGetPackageRoot)mudblazor\7.15.0\buildTransitive\MudBlazor.props')" />
+    <Import Project="$(NuGetPackageRoot)mudblazor.thememanager\2.1.0\buildTransitive\MudBlazor.ThemeManager.props" Condition="Exists('$(NuGetPackageRoot)mudblazor.thememanager\2.1.0\buildTransitive\MudBlazor.ThemeManager.props')" />
   </ImportGroup>
 </Project>

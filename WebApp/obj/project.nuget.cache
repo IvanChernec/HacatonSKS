@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4dNvZ8z/Nv3WM3aWK5lAvpqNIRukSHQ3y0Yhg66lKhBkmOrXWWK8bOcH/AkMCcDBI7SkzXqivzSq9XtNu9kbyw==",
+  "dgSpecHash": "Vpm5Z9jGLiKz6BOW6dXE/dXJ4m2wXBrjp+XLgFySeHY+AschOMGE6JctA+d/XeJJGcXDVNb4k/OH+pbxM8iSBA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nikita\\Desktop\\pog\\Proect\\HacatonSKS\\WebApp\\WebApp.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,7 @@
     "C:\\Users\\Nikita\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "C:\\Users\\Nikita\\.nuget\\packages\\microsoft.jsinterop\\8.0.8\\microsoft.jsinterop.8.0.8.nupkg.sha512",
     "C:\\Users\\Nikita\\.nuget\\packages\\mudblazor\\7.15.0\\mudblazor.7.15.0.nupkg.sha512",
+    "C:\\Users\\Nikita\\.nuget\\packages\\mudblazor.thememanager\\2.1.0\\mudblazor.thememanager.2.1.0.nupkg.sha512",
     "C:\\Users\\Nikita\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512"
   ],
   "logs": []

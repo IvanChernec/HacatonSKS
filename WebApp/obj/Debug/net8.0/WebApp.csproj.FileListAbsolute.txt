@@ -79,3 +79,4 @@ C:\Users\Nikita\Desktop\pog\Proect\HacatonSKS\WebApp\obj\Debug\net8.0\refint\Web
 C:\Users\Nikita\Desktop\pog\Proect\HacatonSKS\WebApp\obj\Debug\net8.0\WebApp.pdb
 C:\Users\Nikita\Desktop\pog\Proect\HacatonSKS\WebApp\obj\Debug\net8.0\WebApp.genruntimeconfig.cache
 C:\Users\Nikita\Desktop\pog\Proect\HacatonSKS\WebApp\obj\Debug\net8.0\ref\WebApp.dll
+C:\Users\Nikita\Desktop\pog\Proect\HacatonSKS\WebApp\bin\Debug\net8.0\MudBlazor.ThemeManager.dll

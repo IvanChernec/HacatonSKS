@@ -253,6 +253,25 @@
           "buildMultiTargeting/MudBlazor.props": {}
         }
       },
+      "MudBlazor.ThemeManager/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "8.0.6",
+          "MudBlazor": "7.0.0"
+        },
+        "compile": {
+          "lib/net8.0/MudBlazor.ThemeManager.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/MudBlazor.ThemeManager.dll": {}
+        },
+        "build": {
+          "buildTransitive/MudBlazor.ThemeManager.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/MudBlazor.ThemeManager.props": {}
+        }
+      },
       "System.IO.Pipelines/8.0.0": {
         "type": "package",
         "compile": {
@@ -664,6 +683,26 @@
         "staticwebassets/MudBlazor.min.js"
       ]
     },
+    "MudBlazor.ThemeManager/2.1.0": {
+      "sha512": "Hsabe7ZO4MoAxdJEBOQO7bYo65KVMCb8czBrTttdKHtg664tou+OJEKiudGvn64piS4ZVW742dvMXsWLCF6cJA==",
+      "type": "package",
+      "path": "mudblazor.thememanager/2.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Nuget.png",
+        "README.md",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "build/MudBlazor.ThemeManager.props",
+        "buildMultiTargeting/MudBlazor.ThemeManager.props",
+        "buildTransitive/MudBlazor.ThemeManager.props",
+        "lib/net7.0/MudBlazor.ThemeManager.dll",
+        "lib/net8.0/MudBlazor.ThemeManager.dll",
+        "mudblazor.thememanager.2.1.0.nupkg.sha512",
+        "mudblazor.thememanager.nuspec",
+        "staticwebassets/MudBlazorThemeManager.css"
+      ]
+    },
     "System.IO.Pipelines/8.0.0": {
       "sha512": "FHNOatmUq0sqJOkTx+UF/9YK1f180cnW5FVqnQMvYUN0elp6wFzbtPSiqbo1/ru8ICp43JM1i7kKkk6GsNGHlA==",
       "type": "package",
@@ -696,7 +735,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "MudBlazor >= 7.*"
+      "MudBlazor >= 7.*",
+      "MudBlazor.ThemeManager >= 2.1.0"
     ]
   },
   "packageFolders": {
@@ -752,6 +792,10 @@
           "MudBlazor": {
             "target": "Package",
             "version": "[7.*, )"
+          },
+          "MudBlazor.ThemeManager": {
+            "target": "Package",
+            "version": "[2.1.0, )"
           }
         },
         "imports": [

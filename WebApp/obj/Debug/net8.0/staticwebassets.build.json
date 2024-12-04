@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/Dt9E/1wYdP/+1uXCkp+luIPlnIs2bZRbDD1V8Bvpqs=",
+  "Hash": "gmKpumGwLJv4AQxEnjj1zJ2/3h2bnPdAIPtwYo8Zpgc=",
   "Source": "WebApp",
   "BasePath": "_content/WebApp",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\Nikita\\.nuget\\packages\\mudblazor.thememanager\\2.1.0\\staticwebassets\\MudBlazorThemeManager.css",
+      "SourceId": "MudBlazor.ThemeManager",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\Nikita\\.nuget\\packages\\mudblazor.thememanager\\2.1.0\\staticwebassets\\",
+      "BasePath": "_content/MudBlazor.ThemeManager",
+      "RelativePath": "MudBlazorThemeManager.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\Nikita\\.nuget\\packages\\mudblazor.thememanager\\2.1.0\\staticwebassets\\MudBlazorThemeManager.css"
+    },
     {
       "Identity": "C:\\Users\\Nikita\\.nuget\\packages\\mudblazor\\7.15.0\\staticwebassets\\MudBlazor.min.css",
       "SourceId": "MudBlazor",

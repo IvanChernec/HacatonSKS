@@ -9,5 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="MudBlazor" Version="7.*" />
+    <PackageReference Include="MudBlazor.ThemeManager" Version="2.1.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Components\resurs\" />
   </ItemGroup>
 </Project>
