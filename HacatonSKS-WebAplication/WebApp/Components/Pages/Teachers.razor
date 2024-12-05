@@ -1,0 +1,42 @@
+﻿@inject DjangoApiService DjangoApiService
+
+<MudDialog>
+    <TitleContent>
+        Преподаватели
+    </TitleContent>
+    <DialogContent>
+        @if (TeacherModels != null)
+        {
+            <MudButtonGroup Color="Color.Primary" Variant="Variant.Text" Vertical="true">
+                @foreach (var teacher in TeacherModels)
+                {
+                    <MudButton>@teacher.Name</MudButton>
+                }
+            </MudButtonGroup>
+        }
+        else
+        {
+            <p>Данные не загружены</p>
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    private List<Teacher> TeacherModels { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        TeacherModels = await DjangoApiService.GetTeachersAsync();
+    }
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+
+    private void Cancel() => MudDialog.Cancel();
+}
