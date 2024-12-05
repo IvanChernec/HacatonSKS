@@ -1,0 +1,42 @@
+﻿@inject DjangoApiService DjangoApiService
+
+<MudDialog>
+    <TitleContent>
+        Группы
+    </TitleContent>
+    <DialogContent>
+        @if (GroupModels != null)
+        {
+            <MudButtonGroup Color="Color.Primary" Variant="Variant.Text" Vertical="true">
+                @foreach (var group in GroupModels)
+                {
+                    <MudButton>@group.Name</MudButton>
+                }
+            </MudButtonGroup>
+        }
+        else
+        {
+            <p>Данные не загружены</p>
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    private List<Group> GroupModels { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        GroupModels = await DjangoApiService.GetGroupsAsync();
+    }
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+
+    private void Cancel() => MudDialog.Cancel();
+}

@@ -1,0 +1,73 @@
+﻿@inject DjangoApiService DjangoApiService
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<MudText Align="Align.Center" Typo="Typo.h2" GutterBottom="true">Расписание</MudText>
+
+<MudButton Size="Size.Medium" StartIcon="@Icons.Material.Filled.List" @onclick="OpenDialogPrepAsync" Variant="Variant.Outlined" Color="Color.Primary">
+    Преподаватели
+</MudButton>
+
+<MudButton Size="Size.Medium" StartIcon="@Icons.Material.Filled.List" @onclick="OpenDialogGroupsAsync" Variant="Variant.Outlined" Color="Color.Primary">
+    Группы
+</MudButton>
+
+<MudTabs Outlined="true" Position="Position.Top" Rounded="true" Border="true"
+         ApplyEffectsToContainer="true" Class="mt-8" PanelClass="pa-6">
+    <MudTabPanel Text="Все недели">
+        <MudText>
+            @if (Schedules != null)
+            {
+                @foreach (var schedule in Schedules)
+                {
+                    <p>@schedule.Day - @schedule.StartTime - @schedule.EndTime (@schedule.Room)</p>
+                }
+            }
+            else
+            {
+                <p>Данные не загружены</p>
+            }
+        </MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="Неделя">
+        <MudText>
+            <MudStack>
+                <MudDateRangePicker @bind-DateRange="@_dateRange" Margin="Margin.Dense" Clearable="true" PlaceholderStart="Начало даты" PlaceholderEnd="Конец даты" />
+            </MudStack>
+        </MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="День">
+        <MudText>
+            <MudDatePicker Placeholder="Дата" Clearable="true" @bind-Date="_date" />
+        </MudText>
+    </MudTabPanel>
+</MudTabs>
+
+@code {
+    private DateTime? _date = DateTime.Today;
+    private DateRange _dateRange { get; set; }
+    private List<Schedule> Schedules { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+       // Schedules = await DjangoApiService.GetSchedulesAsync();
+    }
+
+    private Task OpenDialogGroupsAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+
+        return DialogService.ShowAsync<Groups>("Simple Dialog", options);
+    }
+
+    private Task OpenDialogPrepAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+
+        return DialogService.ShowAsync<Teachers>("Simple Dialog", options);
+    }
+}
