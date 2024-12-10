@@ -10,21 +10,21 @@ interface ScheduleApi {
     @GET("getScheduleGroup")
     suspend fun getScheduleForGroup(
         @Query("group") groupId: String
-    ): ApiResponse<ScheduleData>
+    ): List<ScheduleResponse>
 
-    @GET("schedule")
+    @GET("getScheduleTeachers")
     suspend fun getScheduleForTeacher(
         @Query("teacher") teacherId: String
-    ): ApiResponse<ScheduleData>
+    ): List<ScheduleResponse>
 
     @GET("getAllGroup")
-    suspend fun getGroups(): ApiResponse<List<GroupDto>>
+    suspend fun getGroups(): List<GroupResponse>  // Изменено с ApiResponse<List<GroupDto>> на List<GroupResponse>
 
     @GET("getAllTeachers")
-    suspend fun getTeachers(): ApiResponse<List<TeacherDto>>
+    suspend fun getTeachers(): List<TeacherResponse>
 
     @GET("getAllSubjects")
-    suspend fun getSubjects(): ApiResponse<List<SubjectDto>>
+    suspend fun getSubjects(): List<SubjectResponse>
 
     @GET("academic-year")
     suspend fun getAcademicYear(): ApiResponse<AcademicYearDto>

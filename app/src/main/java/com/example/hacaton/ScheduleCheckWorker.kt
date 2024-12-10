@@ -72,27 +72,24 @@ class ScheduleCheckWorker(
                 ApiClient.api.getScheduleForTeacher(teacher.name)
             }
 
-            response.data?.schedules?.let { newSchedules ->
-                // Преобразуем DTO в сущности базы данных
-                val scheduleEntities = newSchedules.map { dto ->
-                    Schedule(
-                        id = dto.id,
-                        subjectId = dto.subjectId,
-                        teacherId = dto.teacherId,
-                        groupId = dto.groupId,
-                        room = dto.room,
-                        startTime = dto.startTime,
-                        endTime = dto.endTime,
-                        day = dto.day,
-                        week = dto.week
-                    )
-                }
+            val scheduleEntities = response.map { dto ->
+                Schedule(
+                    id = dto.id.toInt(),
+                    subjectId = dto.subjectId.toInt(),
+                    teacherId = dto.teacherId.toInt(),
+                    groupId = dto.groupId.toInt(),
+                    room = dto.room,
+                    startTime = dto.startTime,
+                    endTime = dto.endTime,
+                    day = dto.day,
+                    week = dto.week
+                )
+            }
 
-                // Сравниваем расписания и обновляем если есть изменения
-                if (hasScheduleChanged(currentSchedule, scheduleEntities)) {
-                    database.scheduleDao().insertAll(scheduleEntities)
-                    showScheduleChangeNotification()
-                }
+// Сравниваем расписания и обновляем если есть изменения
+            if (hasScheduleChanged(currentSchedule, scheduleEntities)) {
+                database.scheduleDao().insertAll(scheduleEntities)
+                showScheduleChangeNotification()
             }
 
             return Result.success()

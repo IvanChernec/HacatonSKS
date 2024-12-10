@@ -92,15 +92,11 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         AuthorItem(
-            name = "Иванов Иван",
+            name = "Чернец Иван",
             role = "Разработчик",
             imageRes = R.drawable.author
         )
-        AuthorItem(
-            name = "Петров Петр",
-            role = "Дизайнер",
-            imageRes = R.drawable.author
-        )
+
 
         Spacer(modifier = Modifier.height(24.dp))
 

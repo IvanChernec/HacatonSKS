@@ -64,9 +64,7 @@ class MainActivity : ComponentActivity() {
         val theme = sharedPreferences.getString("theme", "Системная")
 
         setupScheduleCheck(this)
-        lifecycleScope.launch(Dispatchers.IO) {
-            populateDatabaseIfEmpty()
-        }
+
 
         setContent {
             when (theme) {
@@ -89,29 +87,6 @@ class MainActivity : ComponentActivity() {
                     viewModel.loadScheduleData(isTeacher, selectedItem)
                 }
             )
-        }
-    }
-
-
-    private suspend fun populateDatabaseIfEmpty() {
-        val groupCount = database.groupDao().getGroupCount()
-        val teacherCount = database.teacherDao().getTeacherCount()
-
-        if (groupCount == 0 && teacherCount == 0) {
-            // Добавляем группы и преподавателей в базу данных, если они отсутствуют.
-            val groups = listOf(
-                Group(name = "ИП-212"),
-                Group(name = "РВ-231"),
-                Group(name = "Р-223")
-            )
-            groups.forEach { database.groupDao().insertGroup(it) }
-
-            val teachers = listOf(
-                Teacher(name = "Иванов И.И."),
-                Teacher(name = "Петров П.П."),
-                Teacher(name = "Сидоров С.С.")
-            )
-            teachers.forEach { database.teacherDao().insertTeacher(it) }
         }
     }
 }
@@ -293,30 +268,25 @@ private fun navigateToRaspis(context: Context, isTeacher: Int, selectedItem: Str
                     ApiClient.api.getScheduleForTeacher(selectedItem)
                 }
 
-                if (response.success) {
-                    withContext(Dispatchers.IO) {
-                        response.data?.schedules?.let {
-                            database.scheduleDao().insertAll(it.map { dto ->
-                                Schedule(
-                                    id = dto.id,
-                                    subjectId = dto.subjectId,
-                                    teacherId = dto.teacherId,
-                                    groupId = dto.groupId,
-                                    room = dto.room,
-                                    startTime = dto.startTime,
-                                    endTime = dto.endTime,
-                                    day = dto.day,
-                                    week = dto.week
-                                )
-                            })
-                        }
-                    }
+                withContext(Dispatchers.IO) {
+                    database.scheduleDao().insertAll(response.map { dto ->
+                        Schedule(
+                            id = dto.id.toInt(),
+                            subjectId = dto.subjectId.toInt(),
+                            teacherId = dto.teacherId.toInt(),
+                            groupId = dto.groupId.toInt(),
+                            room = dto.room,
+                            startTime = dto.startTime,
+                            endTime = dto.endTime,
+                            day = dto.day,
+                            week = dto.week
+                        )
+                    })
                 }
             }
         } catch (e: Exception) {
             Log.e("API Error", "Error loading schedule data", e)
         } finally {
-            // Переходим к расписанию
             val intent = Intent(context, MainActivityRaspis::class.java).apply {
                 putExtra("isTeacher", isTeacher)
                 putExtra("selectedItem", selectedItem)
@@ -331,7 +301,7 @@ private fun setupScheduleCheck(context: Context) {
         .build()
 
     val scheduleCheckRequest = PeriodicWorkRequestBuilder<ScheduleCheckWorker>(
-        60, TimeUnit.MINUTES,  // Проверка каждые 60 минут
+        1, TimeUnit.MINUTES,  // Проверка каждые 60 минут
         5, TimeUnit.MINUTES    // Гибкий интервал
     )
         .setConstraints(constraints)
